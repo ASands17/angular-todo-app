@@ -27,6 +27,7 @@ export class TodosComponent implements OnInit {
 
     this.dataService.addTodo(new Todo(form.value.text))
 
+    this.showValidationErrors = false
     return form.reset()
 
     

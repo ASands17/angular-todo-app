@@ -4,13 +4,13 @@
 
 <div class="container">
     <div class="add-todo-box">
-        <form>
+        <form #form="ngForm" (ngSubmit)="onFormSubmit(form)">
 
             <h2 class="title is-5"> New Task</h2>
             
-            <div class="field is-grouped">
+            <div class="field is-grouped" style="margin: 0">
                 <p class="control is-expanded">
-                    <input class="input" type="Find a repository" placeholder="Add task here...">
+                    <input ngModel #todoTextField="ngModel" required name="text" class="input" type="Find a repository" minlength="2" placeholder="Add task here...">
                 </p>
                 <p class="control"> 
                     <button class="button alt-gradient-button">
@@ -19,6 +19,12 @@
                     </button>
                 </p>
             </div>
+
+            <div *ngIf="todoTextField.invalid && showValidationErrors">
+                <p class="help is-danger" *ngIf="todoTextField.errors && todoTextField.errors['required']">  Please add a task! </p>
+                <p class="help is-danger" *ngIf="todoTextField.errors && todoTextField.errors['minlength']">  Task must be at least two characters... </p>
+            </div>
+
         </form>
     </div>
 </div>
@@ -26,7 +32,7 @@
 <section class="section">
     <div class="container"> 
         <div class="todos-list">
-            <div class="todo-item completed">
+            <div class="todo-item" *ngFor="let todo of todos" [class.completed] ="todo.completed">
                 <div class="check-box">
                     
                     <i class="material-icons">
@@ -34,7 +40,7 @@
                     </i>
                 </div>
                 <div class="todo-test">
-                    I love cheese, especially chalk and cheese fondue. Bavarian bergkase everyone loves lancashire port-salut bavarian bergkase pecorino monterey jack edam. Stilton cheesy feet jarlsberg emmental red leicester parmesan croque monsieur smelly cheese. Stilton.
+                    {{ todo.text }}
                 </div>
 
                 <div class="todo-controls-box">
@@ -47,28 +53,6 @@
                 </div>
 
 
-            </div>
-
-            <div class="todo-item">
-                <div class="check-box">
-                    
-                    <i class="material-icons">
-                        check
-                    </i>
-                </div>
-                <div class="todo-test">
-                    I love cheese, especially croque monsieur smelly cheese. Stilton.
-                </div>
-
-                <div class="todo-controls-box">
-                    <div class="todo-control-button">
-                        <i class="material-icons">edit</i>
-                    </div>
-                    <div class="todo-control-button is-danger">
-                        <i class="material-icons">delete</i>
-                    </div>
-                </div>
-            
             </div>
 
         </div>

@@ -6,15 +6,16 @@ import { Todo } from './todo.model';
 })
 export class DataService {
 
-  todos: Todo[]
+  todos: Todo[] = [
+    new Todo("TEST"),
+    new Todo("I love Sadie and Max")
+  ]
 
   constructor() { }
-
 
   getAllTodos() {
     return this.todos
   }
-
 
   addTodo(todo: Todo) {
     this.todos.push(todo)
@@ -24,9 +25,8 @@ export class DataService {
     this.todos[index] = updatedTodo
   }
 
-  deleteTodo(index: numvber) {
+  deleteTodo(index: number) {
     this.todos.splice(index, 1)
   }
-
 
 }
